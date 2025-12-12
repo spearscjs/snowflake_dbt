@@ -1,0 +1,30 @@
+[0m17:59:57.800388 [debug] [MainThread]: Got an exception trying to initialize tracking
+
+
+============================== 17:59:57.877215 | dd263a34-d598-4ed3-894a-461ca83f0c88 ==============================
+[0m17:59:57.877215 [info ] [MainThread]: Running with dbt=1.10.15
+[0m17:59:57.877968 [debug] [MainThread]: running dbt with arguments {'version_check': 'True', 'no_print': 'None', 'static_parser': 'True', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'printer_width': '80', 'write_json': 'True', 'introspect': 'True', 'log_cache_events': 'False', 'empty': 'None', 'cache_selected_only': 'False', 'fail_fast': 'False', 'debug': 'False', 'log_format': 'default', 'profiles_dir': 'C:\\Users\\LetsG\\.dbt', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'partial_parse': 'True', 'invocation_command': 'dbt init', 'use_colors': 'True', 'indirect_selection': 'eager', 'use_experimental_parser': 'False', 'log_path': 'logs'}
+[0m18:00:09.427007 [debug] [MainThread]: Starter project path: C:\Python\Python313\Lib\site-packages\dbt\include\starter_project
+[0m18:00:09.438237 [info ] [MainThread]: 
+Your new dbt project "snowflake_dbt" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m18:00:09.438761 [info ] [MainThread]: Setting up your profile.
+[0m18:00:13.674645 [debug] [MainThread]: Snowflake adapter: Setting snowflake.connector to ERROR (file logging only)
+[0m18:00:13.675010 [debug] [MainThread]: Snowflake adapter: Setting botocore to ERROR (file logging only)
+[0m18:00:13.675371 [debug] [MainThread]: Snowflake adapter: Setting boto3 to ERROR (file logging only)
+[0m18:03:35.531319 [info ] [MainThread]: Profile snowflake_dbt written to C:\Users\LetsG\.dbt\profiles.yml using target's profile_template.yml and your supplied values. Run 'dbt debug' to validate the connection.
+[0m18:03:35.532408 [debug] [MainThread]: Command `dbt init` succeeded at 18:03:35.532296 after 217.77 seconds
+[0m18:03:35.532693 [debug] [MainThread]: Flushing usage events
