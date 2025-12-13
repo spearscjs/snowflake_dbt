@@ -34,7 +34,7 @@ jobs:
         run: pip install dbt-snowflake
         
       - name: Run dbt
-        run: dbt run
+        run: dbt build
 
       # Runs a single command using the runners shell
       - name: Executing dbt build
