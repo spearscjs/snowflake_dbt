@@ -10,6 +10,10 @@ models:
         data_tests:
           - unique
           - not_null
+      - name: amount
+        description: "numerical value in cents"
+        data_tests:
+          - not_null
 
   - name: my_second_dbt_model
     description: "A starter dbt model"
@@ -18,4 +22,8 @@ models:
         description: "The primary key for this table"
         data_tests:
           - unique
+          - not_null
+      - name: amount
+        description: "numerical value in dollars"
+        data_tests:
           - not_null
