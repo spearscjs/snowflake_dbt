@@ -33,7 +33,6 @@ jobs:
 
       - name: Set up dbt profile
         run: |
-          mkdir -p ~/.dbt
           cat <<EOF > ~/.dbt/profiles.yml
           snowflake_dbt:
             target: snowflake_dev
