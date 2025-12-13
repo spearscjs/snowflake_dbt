@@ -64,4 +64,6 @@ jobs:
           ls -al ~/.dbt
           ls -al snowflake_dbt 
       - name: Run dbt
-        run: dbt build --profiles-dir ~/.dbt
+        run: |
+          cd snowflake_dbt
+          dbt build --profiles-dir ~/.dbt
