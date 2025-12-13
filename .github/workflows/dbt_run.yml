@@ -25,6 +25,20 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dbt
+        run: pip install dbt-snowflake
+        
+      - name: Run dbt
+        run: dbt run
+
       # Runs a single command using the runners shell
       - name: Executing dbt build
-        run: dbt build
+        run: 
+          apt-get install python 
+
+          dbt build
