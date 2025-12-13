@@ -57,5 +57,10 @@ jobs:
           SNOWFLAKE_DB: ${{ secrets.SNOWFLAKE_DB }}
           SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
 
+      - name: Machine Info
+        run: | 
+          ls -al
+          ls -al ~/.dbt
+          ls -al snowflake_dbt 
       - name: Run dbt
         run: dbt build --profiles-dir ~/.dbt
