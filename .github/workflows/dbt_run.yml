@@ -59,6 +59,7 @@ jobs:
 
       - name: Machine Info
         run: | 
+          pwd
           ls -al
           ls -al ~/.dbt
           ls -al snowflake_dbt 
