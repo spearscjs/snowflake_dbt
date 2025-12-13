@@ -1,70 +1,61 @@
-# This is a basic workflow to help you get started with Actions
-
 name: dbt_run
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+# Prevent overlapping runs
+concurrency:
+  group: dbt-main
+  cancel-in-progress: false
+
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    environment: ${{ github.ref == 'refs/heads/main' && 'dev' || 'dev' }}
+    environment: dev  
 
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
 
+      - name: Install dbt
+        run: |
+          pip install --upgrade pip
+          pip install dbt-core dbt-snowflake
+
       - name: Set up dbt profile
         run: |
           mkdir -p ~/.dbt
-          echo "my_snowflake_profile:
+          cat <<EOF > ~/.dbt/profiles.yml
+          my_snowflake_profile:
             target: snowflake_dev
             outputs:
               snowflake_dev:
                 type: snowflake
-                account: ${{ secrets.SNOWFLAKE_ACCOUNT }}
-                user: ${{ secrets.SNOWFLAKE_USER }}
-                password: ${{ secrets.SNOWFLAKE_PASSWORD }}
-                role: ${{ secrets.SNOWFLAKE_ROLE }}
-                database: ${{ secrets.SNOWFLAKE_DB }}
-                warehouse: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+                account: ${SNOWFLAKE_ACCOUNT}
+                user: ${SNOWFLAKE_USER}
+                password: ${SNOWFLAKE_PASSWORD}
+                role: ${SNOWFLAKE_ROLE}
+                database: ${SNOWFLAKE_DB}
+                warehouse: ${SNOWFLAKE_WAREHOUSE}
                 schema: PUBLIC
                 threads: 1
-          " > ~/.dbt/profiles.yml
+          EOF
+        env:
+          SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+          SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+          SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
+          SNOWFLAKE_DB: ${{ secrets.SNOWFLAKE_DB }}
+          SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
 
-
-
-
-      - name: Install dbt
-        run: pip install dbt-core
-
-      - name: Install dbt snowflake
-        run: pip install dbt-snowflake
-        
       - name: Run dbt
-        run: dbt build
-
-      # Runs a single command using the runners shell
-      - name: Executing dbt build
-        run: 
-          apt-get install python 
-
-          dbt build
+        run: dbt build --profiles-dir ~/.dbt
