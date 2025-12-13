@@ -14,22 +14,23 @@ concurrency:
 
 jobs:
   build:
-    runs-on: [self-hosted]
+    runs-on:  ubuntu-latest
+    # runs-on: [self-hosted, ubuntu-latest]
     environment: dev  
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-#      - name: Set up Python
-#        uses: actions/setup-python@v4
-#        with:
-#          python-version: '3.9'
-#
-#      - name: Install dbt
-#        run: |
-#          pip install --upgrade pip
-#          pip install dbt-core dbt-snowflake
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dbt
+        run: |
+          pip install --upgrade pip
+          pip install dbt-core dbt-snowflake
 
       - name: Set up dbt profile
         run: |
